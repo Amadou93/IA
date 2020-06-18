@@ -1,0 +1,98 @@
+ les codes prologue
+
+s(X, Y) :- np(X, U), vp(U, Y).
+​
+np(X, Y) :- det(X, U), n(U, Y).
+​
+vp(X, Y) :- tv(X, U), np(U, Y).
+vp(X, Y) :- iv(X, Y).
+​
+det([the | Y], Y).
+det([a | Y], Y).
+det([an | Y], Y).
+​
+n([giraffe | Y], Y).
+n([apple | Y], Y).
+​
+iv([dreams | Y], Y).
+​
+tv([eats | Y], Y).
+tv([dreams | Y], Y).
+​
+%queries
+​
+s([the, giraffe, dreams], []).
+s([the, giraffe, sleeps], []).
+s(X, []).
+
+s --> np,vp.
+np --> det,n.
+vp --> tv,np.
+vp --> iv.
+det --> [the].
+det --> [a].
+det --> [an].
+n --> [giraffe].
+n --> [apple].
+iv --> [dreams].
+tv --> [eats].
+tv --> [dreams].
+
+
+%queries
+
+s([the, giraffe, dreams], []).
+s([the, giraffe, sleeps], []).
+s(X, []).
+
+s(s(NP,VP)) --> np(NP),vp(VP).
+np(np(DET,N)) --> det(DET),n(N).
+vp(vp(tv(TV),np(NP))) --> tv(TV),np(NP).
+vp(vp(VP)) --> iv(VP).
+det(det(the)) --> [the].
+det(det(a)) --> [a].
+det(det(a)) --> [an].
+n(n(giraffe)) --> [giraffe].
+n(n(apple)) --> [apple].
+iv(iv(dreams)) --> [dreams].
+tv(tv(eats)) --> [eats].
+tv(tv(dreams)) --> [dreams].   
+
+%queries
+
+s(Tree,[the,giraffe,dreams],X).
+s(Tree,[the,giraffe,sleeps],X).
+s(Tree,Sentence,[]).
+
+
+p(X,Y) :- sn(X,U), sv(U,Y).
+sn(X,Y) :- det(X,U), n(U,Y).
+sv(X,Y) :- v(X,Y).
+sv(X,Y) :- v(X,U), sn(U,Y).
+det([le|X],X).
+det([la|X],X).
+n([souris|X],X).
+n([chat|X],X).
+v([mange|X],X).
+v([trottine|X],X).
+
+%queries
+
+p(X, []).
+code en prologue de la famille royal 
+p(edward7, george5).
+p(victoria,  edward7).
+p(alexandra,  george5).
+p(george6,  elizabeth2).
+p(george5,  george6).
+g(X,Y):-p(X,Z),p(Z,Y).
+
+speaks(allen,russian).
+speaks(bob,english).
+speaks(mary,russian).
+speaks(mary,wnglish).
+talkswith(Person1,Person2):-speaks(Person1,L),speaks(Person2,L), Person1\= Person2.
+
+
+factorial(0,1).
+factorial(N,Result) :- N>0, M is N-1,factorial(M,SubResult), Result is N*SubResult
